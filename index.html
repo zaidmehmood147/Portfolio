@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zaid Mehmood | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <style>
         :root {
             --yellow: #FFD200;
@@ -85,6 +86,88 @@
             .section-header { font-size: 3rem; }
             footer { flex-direction: column; gap: 20px; }
         }
+
+        #toolkit { 
+        padding: 120px 5%; 
+        background: var(--white); 
+        text-align: center; /* Centers the heading */
+    }
+
+    .toolkit-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers the content blocks */
+    }
+
+    .toolkit-label {
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        margin-bottom: 30px;
+        color: #888;
+        width: 100%;
+    }
+
+    .toolkit-container { 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Centers the icons in the row */
+        gap: 25px; 
+        margin-bottom: 80px;
+        width: 100%;
+    }
+    
+    .tool-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 110px;
+        border: 1px solid #eee;
+        background: #fff;
+        transition: var(--transition);
+        filter: grayscale(1);
+        opacity: 0.5;
+    }
+
+    .tool-card:hover {
+        filter: grayscale(0);
+        opacity: 1;
+        transform: translateY(-12px); /* Moves up on hover */
+        border-color: var(--black);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .tool-card i {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        color: var(--black);
+    }
+
+    .tool-card span {
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Professional "Tuff" Heading for this section */
+    .toolkit-title {
+        font-size: 4.5rem;
+        font-weight: 900;
+        letter-spacing: -3px;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+    }
+
+    @media (max-width: 768px) {
+        .toolkit-title { font-size: 3rem; }
+        .tool-card { width: 90px; height: 90px; }
+    }
     </style>
 </head>
 <body>
@@ -101,19 +184,47 @@
         <section class="hero">
             <div class="hero-side design-side">
                 <h1>Design</h1>
-                <p>Cisco Certified UI/UX Specialist. Creating clean, high-impact front-end experiences.</p>
+                <p> UI/UX Specialist. Creating clean, high-impact front-end experiences.</p>
             </div>
             <div class="hero-side develop-side">
                 <h1>Develop</h1>
-                <p>MERN Stack Developer @SMIT. Engineering performance-driven web solutions.</p>
+                <p>MERN Stack Developer. Engineering performance-driven web solutions.</p>
             </div>
         </section>
 
         <section class="about-section reveal">
             <h2>Hey! My name is Zaid Mehmood and I'm a Front-End Designer & Developer who converts your ideas into Reality.</h2>
-            <p>I build slick, interactive, and performance-efficient web apps. Currently balancing Pre-Engineering logic with Full-Stack development.</p>
+            <p>I don't just build websites; I engineer responsive, high-performance experiences. I am Cisco Certified in JavaScript, HTML, and CSS, which means my foundations are built on industry standards. Whether I'm designing a minimalist UI in Figma or architecting a database in MongoDB, my goal is always the same: precision, scalability, and impact.</p>
         </section>
 
+        <section id="toolkit" class="reveal">
+    <h2 class="section-header">Toolkit</h2>
+    
+    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 10px; font-weight: 700;">Languages</p>
+    <div class="toolkit-container" style="margin-bottom: 60px;">
+        <div class="tool-card"><i class="devicon-python-plain"></i><span>Python</span></div>
+        <div class="tool-card"><i class="devicon-html5-plain"></i><span>HTML5</span></div>
+        <div class="tool-card"><i class="devicon-css3-plain"></i><span>CSS3</span></div>
+        <div class="tool-card"><i class="devicon-javascript-plain"></i><span>JS</span></div>
+        <div class="tool-card"><i class="devicon-ruby-plain"></i><span>Ruby</span></div>
+        <div class="tool-card"><i class="devicon-typescript-plain"></i><span>TypeScript</span></div>
+    </div>
+
+    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 10px; font-weight: 700;">Frameworks & Tools</p>
+    <div class="toolkit-container">
+        <div class="tool-card"><i class="devicon-react-original"></i><span>React</span></div>
+        <div class="tool-card"><i class="devicon-mongodb-plain"></i><span>MongoDB</span></div>
+        <div class="tool-card"><i class="devicon-firebase-plain"></i><span>Firebase</span></div>
+        <div class="tool-card"><i class="devicon-figma-plain"></i><span>Figma</span></div>
+        <div class="tool-card"><i class="devicon-redux-original"></i><span>Redux</span></div>
+        <div class="tool-card"><i class="devicon-tailwindcss-original"></i><span>Tailwind</span></div>
+        <div class="tool-card"><i class="devicon-git-plain"></i><span>Git</span></div>
+        <div class="tool-card"><i class="devicon-express-original"></i><span>Express</span></div>
+        <div class="tool-card"><i class="devicon-nodejs-plain"></i><span>Node JS</span></div>
+        <div class="tool-card"><i class="devicon-postman-plain"></i><span>Postman</span></div>
+    </div>
+</section>
+         
         <section id="work">
             <h2 class="section-header reveal">Work</h2>
             
