@@ -3,207 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAID MEHMOOD // DIGITAL ARCHITECT</title>
+    <title>ZAID MEHMOOD // ARCHITECT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     
     <style>
-        /* --- ARCHITECTURAL CSS ENGINE --- */
         :root {
             --y: #FFD200; --o: #FF5A35; --b: #000; --w: #fff;
             --e: cubic-bezier(0.8, 0, 0.2, 1);
-            --e-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; outline: none; }
-        body { 
-            background: var(--b); color: var(--w); 
-            font-family: 'Inter', sans-serif; 
-            overflow: hidden; /* We'll use JS for Smooth Scroll */
-            height: 100vh;
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { overflow-x: hidden; scroll-behavior: smooth; }
+        body { background: var(--b); color: var(--w); font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+        
+        #cursor {
+            position: fixed; width: 12px; height: 12px; background: #fff;
+            border-radius: 50%; pointer-events: none; z-index: 10001;
+            mix-blend-mode: difference; transition: transform 0.1s, width 0.3s, height 0.3s;
         }
 
-        /* --- SMOOTH SCROLL CONTAINER --- */
-        #scroll-container {
-            position: fixed; top: 0; left: 0; width: 100%;
-            will-change: transform;
-        }
+        .cursor-hover { width: 40px !important; height: 40px !important; }
 
-        /* --- ADVANCED KINETIC CURSOR --- */
-        #cursor-main {
-            position: fixed; width: 8px; height: 8px; background: #fff;
-            border-radius: 50%; pointer-events: none; z-index: 10000;
-            mix-blend-mode: difference;
+        nav {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 2000; mix-blend-mode: difference;
         }
-        #cursor-aura {
-            position: fixed; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            transition: width 0.3s, height 0.3s, background 0.3s;
-        }
+        .logo { font-weight: 900; font-size: 1rem; letter-spacing: -1px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; }
 
-        /* --- THE ULTIMATE SPLIT HERO --- */
-        .hero { display: flex; height: 100vh; width: 100vw; position: relative; }
+        .hero { 
+            display: flex; 
+            height: 100vh; 
+            width: 100vw; 
+            overflow: hidden; 
+            border-bottom: 1px solid #222; 
+            background: var(--b);
+        }
+        
         .side {
-            flex: 1; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; transition: flex 1s var(--e);
-            position: relative; overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            transition: all 0.8s var(--e);
+            overflow: hidden;
+            padding: 20px;
         }
-        .hero:has(.design:hover) .design { flex: 4; }
-        .hero:has(.develop:hover) .develop { flex: 4; }
+
+        @media (min-width: 992px) {
+            .hero:hover .side { flex: 0.5; }
+            .side:hover { flex: 1.5 !important; }
+        }
 
         .design { background: var(--y); color: #000; }
         .develop { background: var(--o); color: #000; }
 
-        .side h1 {
-            font-size: clamp(5rem, 18vw, 15rem); font-weight: 900;
-            text-transform: uppercase; letter-spacing: -12px; line-height: 0.7;
-            will-change: transform;
-        }
-        .side p {
-            position: absolute; bottom: 50px; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 5px; font-size: 0.7rem;
-            opacity: 0.4;
+        .side h1 { 
+            font-size: clamp(3rem, 12vw, 15rem); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: -0.07em; 
+            line-height: 0.8; 
+            text-align: center; 
+            white-space: nowrap;
+            pointer-events: none; 
         }
 
-        /* --- BRUTAL GRID --- */
-        .grid-section { padding: 150px 5%; background: #000; }
-        .grid-parent {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            border-top: 1px solid #222; border-left: 1px solid #222;
+        .side span { 
+            position: absolute; 
+            bottom: 40px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 5px; 
+            font-size: 0.7rem; 
+            opacity: 0.5; 
+            white-space: nowrap;
         }
-        .grid-item {
-            border-right: 1px solid #222; border-bottom: 1px solid #222;
-            padding: 100px 20px; display: flex; flex-direction: column;
-            align-items: center; transition: 0.4s var(--e-out);
-        }
-        .grid-item:hover { background: #fff; color: #000; }
-        .grid-item i { font-size: 4rem; margin-bottom: 20px; }
-        .grid-item span { font-weight: 900; text-transform: uppercase; font-size: 0.8rem; }
 
-        /* --- WORK SECTION --- */
-        .work-section { padding: 100px 5%; }
-        .work-row {
+        #arsenal { padding: 120px 5%; border-top: 1px solid #222; }
+        .section-header { font-size: 0.65rem; font-weight: 900; color: #555; letter-spacing: 6px; margin-bottom: 40px; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #222; }
+        .tool {
+            border: 1px solid #222; padding: 80px 20px; display: flex; flex-direction: column;
+            align-items: center; transition: 0.4s var(--e);
+        }
+        .tool:hover { background: #fff; color: #000; transform: translateY(-5px); }
+        .tool i { font-size: 3.5rem; margin-bottom: 20px; }
+        .tool p { font-weight: 900; text-transform: uppercase; font-size: 0.7rem; }
+
+        #projects { padding: 100px 5%; border-top: 1px solid #222; }
+        .project-item {
             display: flex; justify-content: space-between; align-items: flex-end;
-            padding: 100px 0; border-bottom: 1px solid #222;
-            transition: 0.5s var(--e-out);
+            padding: 80px 0; border-bottom: 1px solid #222; transition: 0.4s var(--e);
         }
-        .work-row:hover { padding-left: 50px; border-bottom-color: var(--y); }
-        .work-row h2 { font-size: 8vw; font-weight: 900; text-transform: uppercase; letter-spacing: -6px; }
+        .project-item:hover { padding-left: 30px; color: var(--y); }
+        .project-item h3 { font-size: clamp(2rem, 8vw, 8rem); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; line-height: 0.8; }
+        .project-meta { text-align: right; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; opacity: 0.5; letter-spacing: 2px; }
 
-        /* --- FOOTER --- */
-        footer { padding: 200px 5% 50px; background: #000; }
-        .footer-big { font-size: 15vw; font-weight: 900; letter-spacing: -12px; line-height: 0.7; margin-bottom: 100px; }
-        .footer-meta { display: flex; justify-content: space-between; font-weight: 900; opacity: 0.3; font-size: 0.8rem; }
+        #education { padding: 100px 5%; border-top: 1px solid #222; background: #050505; }
+        .edu-card {
+            display: grid; grid-template-columns: 150px 1fr;
+            padding: 60px 0; border-bottom: 1px solid #222; gap: 40px;
+        }
+        .edu-status { font-weight: 900; font-size: 0.7rem; color: var(--y); text-transform: uppercase; letter-spacing: 2px; }
+        .edu-content h3 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 15px; }
+        .edu-content p { font-size: 1.1rem; color: #999; max-width: 800px; line-height: 1.6; }
 
+        footer { padding: 150px 5% 50px; border-top: 1px solid #222; }
+        .footer-h { font-size: clamp(4rem, 16vw, 15rem); font-weight: 900; letter-spacing: -0.07em; line-height: 0.8; margin-bottom: 60px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 40px; }
+        
+        .contact-wrap { display: flex; flex-direction: column; gap: 20px; }
+        .social-links { display: flex; gap: 20px; }
+        .social-links a { color: #fff; text-decoration: none; font-size: 1.5rem; transition: 0.3s; cursor: pointer !important; }
+        .social-links a:hover { color: var(--y); }
+
+        .mail-link { 
+            font-size: clamp(1.2rem, 3vw, 2.5rem); 
+            font-weight: 900; 
+            color: var(--o); 
+            text-decoration: none; 
+            border-bottom: 4px solid var(--o); 
+            position: relative;
+            z-index: 10;
+            cursor: pointer !important;
+        }
+        
+        .meta-data { font-size: 0.7rem; font-weight: 900; opacity: 0.4; text-transform: uppercase; line-height: 1.8; }
+
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; }
+            .side { flex: 1 1 50vh; width: 100vw; }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .edu-card { grid-template-columns: 1fr; gap: 10px; }
+            .project-item { flex-direction: column; align-items: flex-start; gap: 20px; }
+            #cursor { display: none; }
+            * { cursor: auto !important; }
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="cursor-main"></div>
-    <div id="cursor-aura"></div>
+    <div id="cursor"></div>
 
-    <div id="scroll-container">
+    <nav>
+        <div class="logo">ZAID MEHMOOD</div>
+        <div class="nav-links">
+            <a href="#projects">Work</a>
+            <a href="#arsenal">Arsenal</a>
+            <a href="#education">Studies</a>
+        </div>
+    </nav>
+
+    <main>
         <section class="hero">
             <div class="side design">
-                <h1 class="parallax" data-speed="0.1">Design</h1>
-                <p>Architecture of Vision</p>
+                <h1>Design</h1>
+                <span>Digital Architecture</span>
             </div>
             <div class="side develop">
-                <h1 class="parallax" data-speed="-0.1">Develop</h1>
-                <p>Architecture of Logic</p>
+                <h1>Develop</h1>
+                <span>Logic Engineering</span>
             </div>
         </section>
 
-        <section class="grid-section">
-            <div class="grid-parent">
-                <div class="grid-item"><i class="devicon-python-plain"></i><span>Python</span></div>
-                <div class="grid-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
-                <div class="grid-item"><i class="devicon-react-original"></i><span>React_JS</span></div>
-                <div class="grid-item"><i class="devicon-mongodb-plain"></i><span>Mongo_DB</span></div>
-                <div class="grid-item"><i class="devicon-nodejs-plain"></i><span>Node_JS</span></div>
-                <div class="grid-item"><i class="devicon-tailwindcss-original"></i><span>Tailwind</span></div>
-                <div class="grid-item"><i class="devicon-figma-plain"></i><span>Figma</span></div>
-                <div class="grid-item"><i class="devicon-git-plain"></i><span>Git_Flow</span></div>
+        <section id="arsenal">
+            <p class="section-header">// THE_TOOLKIT</p>
+            <div class="grid">
+                <div class="tool"><i class="devicon-python-plain"></i><p>Python</p></div>
+                <div class="tool"><i class="devicon-javascript-plain"></i><p>JavaScript</p></div>
+                <div class="tool"><i class="devicon-react-original"></i><p>React_JS</p></div>
+                <div class="tool"><i class="devicon-mongodb-plain"></i><p>Mongo_DB</p></div>
+                <div class="tool"><i class="devicon-nodejs-plain"></i><p>Node_JS</p></div>
+                <div class="tool"><i class="devicon-tailwindcss-original"></i><p>Tailwind</p></div>
+                <div class="tool"><i class="devicon-figma-plain"></i><p>Figma</p></div>
+                <div class="tool"><i class="devicon-git-plain"></i><p>Git_Flow</p></div>
             </div>
         </section>
 
-        <section class="work-section">
-            <div class="work-row"><h2>Huarache</h2><span>/ 01</span></div>
-            <div class="work-row"><h2>Identity</h2><span>/ 02</span></div>
-            <div class="work-row"><h2>Systems</h2><span>/ 03</span></div>
+        <section id="projects">
+            <p class="section-header">// SELECTED_WORKS</p>
+            <div class="project-item">
+                <h3>Air Huarache</h3>
+                <div class="project-meta">Concept Store<br>MERN STACK / 2026</div>
+            </div>
+            <div class="project-item">
+                <h3>System Core</h3>
+                <div class="project-meta">Infrastructure<br>NODE.JS / 2025</div>
+            </div>
+            <div class="project-item">
+                <h3>Visual ID</h3>
+                <div class="project-meta">Brand System<br>UI.UX / 2025</div>
+            </div>
+        </section>
+
+        <section id="education">
+            <p class="section-header">// TECHNICAL_EDUCATION</p>
+            <div class="edu-card">
+                <div class="edu-status">Enrolled</div>
+                <div class="edu-content">
+                    <h3>Full Stack Development</h3>
+                    <p>Focus on engineering, data structures, and high-performance system architecture.</p>
+                </div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-status">Certified</div>
+                <div class="edu-content">
+                    <h3>Cisco Certified</h3>
+                    <p>Industrial networking, routing protocols, and secure data infrastructure.</p>
+                </div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-status">Enrolled</div>
+                <div class="edu-content">
+                    <h3>HSC Pre-Engineering</h3>
+                    <p>Core specialisation in physics and advanced mathematics for logical problem solving.</p>
+                </div>
+            </div>
         </section>
 
         <footer>
-            <div class="footer-big">LET'S<br>BUILD.</div>
-            <div class="footer-meta">
-                <div>ZAID MEHMOOD © 2026</div>
-                <div>KARACHI, PK (24° 51')</div>
+            <h2 class="footer-h">LET'S<br>BUILD.</h2>
+            <div class="footer-bottom">
+                <div class="contact-wrap">
+                    <div class="social-links">
+                        <a href="https://github.com/zaidmehmood147" target="_blank"><i class="devicon-github-original"></i></a>
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank" style="font-weight: 900; font-size: 1.2rem;">LN</a>
+                    </div>
+                    <a href="mailto:kzaid2918@gmail.com" class="mail-link">ZAIDMEHMOOD@CONNECT.COM</a>
+                </div>
+                <div class="meta-data">
+                    KARACHI, PK // 24.86° N<br>
+                    © 2026 Zaid Mehmood.
+                </div>
             </div>
         </footer>
-    </div>
+    </main>
 
     <script>
-        /* --- THE LOGIC ENGINE --- */
-
-        // 1. KINETIC CURSOR (Lerp Physics)
-        const cMain = document.getElementById('cursor-main');
-        const cAura = document.getElementById('cursor-aura');
-        let mX = 0, mY = 0, aX = 0, aY = 0;
-
-        document.addEventListener('mousemove', e => {
-            mX = e.clientX; mY = e.clientY;
-            cMain.style.transform = `translate3d(${mX}px, ${mY}px, 0)`;
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate3d(${e.clientX - (cursor.offsetWidth/2)}px, ${e.clientY - (cursor.offsetHeight/2)}px, 0)`;
         });
 
-        function updateCursor() {
-            aX += (mX - aX - 20) * 0.15;
-            aY += (mY - aY - 20) * 0.15;
-            cAura.style.transform = `translate3d(${aX}px, ${aY}px, 0)`;
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
-
-        // 2. SMOOTH MOMENTUM SCROLLING
-        let current = 0;
-        let target = 0;
-        let ease = 0.075;
-        const container = document.getElementById('scroll-container');
-
-        function smoothScroll() {
-            target = window.scrollY;
-            current += (target - current) * ease;
-            container.style.transform = `translate3d(0, ${-current}px, 0)`;
-            
-            // Adjust body height to match container
-            document.body.style.height = `${container.getBoundingClientRect().height}px`;
-            requestAnimationFrame(smoothScroll);
-        }
-        smoothScroll();
-
-        // 3. PARALLAX ELEMENTS
-        window.addEventListener('scroll', () => {
-            const items = document.querySelectorAll('.parallax');
-            items.forEach(el => {
-                const speed = el.getAttribute('data-speed');
-                el.style.transform = `translateY(${window.scrollY * speed}px)`;
-            });
-        });
-
-        // 4. INTERACTIVE HOVERS
-        const interactables = document.querySelectorAll('.grid-item, .work-row, .side');
+        // Add cursor scale effect on links
+        const interactables = document.querySelectorAll('a, .tool');
         interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cAura.style.width = '80px';
-                cAura.style.height = '80px';
-                cAura.style.background = 'rgba(255,255,255,0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cAura.style.width = '40px';
-                cAura.style.height = '40px';
-                cAura.style.background = 'transparent';
-            });
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
         });
 
+        const sides = document.querySelectorAll('.side');
+        sides.forEach(side => {
+            side.addEventListener('mousemove', (e) => {
+                const h1 = side.querySelector('h1');
+                const rect = side.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width/2) * 0.1;
+                const y = (e.clientY - rect.top - rect.height/2) * 0.1;
+                h1.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            side.addEventListener('mouseleave', () => {
+                side.querySelector('h1').style.transform = `translate(0, 0)`;
+            });
+        });
     </script>
 </body>
 </html>
