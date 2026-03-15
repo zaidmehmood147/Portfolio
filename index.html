@@ -12,20 +12,23 @@
         :root {
             --y: #FFD200; --o: #FF5A35; --b: #000; --w: #fff;
             --e: cubic-bezier(0.8, 0, 0.2, 1);
+            /* Added a subtle border color for better definition */
+            --border: #222; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         html { overflow-x: hidden; scroll-behavior: smooth; }
-        body { background: var(--b); color: var(--w); font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+        body { background: var(--b); color: var(--w); font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; -webkit-font-smoothing: antialiased; }
         
         #cursor {
             position: fixed; width: 12px; height: 12px; background: #fff;
             border-radius: 50%; pointer-events: none; z-index: 10001;
-            mix-blend-mode: difference; transition: transform 0.1s, width 0.3s, height 0.3s;
-            pointer-events: none;
+            mix-blend-mode: difference; 
+            /* Smoother transition for the size change */
+            transition: transform 0.1s ease-out, width 0.3s var(--e), height 0.3s var(--e);
         }
 
-        .cursor-hover { width: 40px !important; height: 40px !important; }
+        .cursor-hover { width: 50px !important; height: 50px !important; }
 
         nav {
             position: fixed; top: 0; width: 100%; height: 80px;
@@ -34,14 +37,14 @@
         }
         .logo { font-weight: 900; font-size: 1rem; letter-spacing: -1px; text-transform: uppercase; }
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
         .hero { 
             display: flex; 
             height: 100vh; 
             width: 100vw; 
             overflow: hidden; 
-            border-bottom: 1px solid #222; 
+            border-bottom: 1px solid var(--border); 
             background: var(--b);
         }
         
@@ -75,6 +78,7 @@
             text-align: center; 
             white-space: nowrap;
             pointer-events: none; 
+            will-change: transform;
         }
 
         .side span { 
@@ -88,43 +92,45 @@
             white-space: nowrap;
         }
 
-        #arsenal { padding: 120px 5%; border-top: 1px solid #222; }
+        #arsenal { padding: 120px 5%; border-top: 1px solid var(--border); }
         .section-header { font-size: 0.65rem; font-weight: 900; color: #555; letter-spacing: 6px; margin-bottom: 40px; text-transform: uppercase; }
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #222; }
+        
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
         .tool {
-            border: 1px solid #222; padding: 80px 20px; display: flex; flex-direction: column;
+            border: 1px solid var(--border); padding: 80px 20px; display: flex; flex-direction: column;
             align-items: center; transition: 0.4s var(--e);
         }
-        .tool:hover { background: #fff; color: #000; transform: translateY(-5px); }
+        /* Refined hover: uses scale instead of translateY for a cleaner feel */
+        .tool:hover { background: #fff; color: #000; transform: scale(0.96); }
         .tool i { font-size: 3.5rem; margin-bottom: 20px; }
         .tool p { font-weight: 900; text-transform: uppercase; font-size: 0.7rem; }
 
-        #projects { padding: 100px 5%; border-top: 1px solid #222; }
+        #projects { padding: 100px 5%; border-top: 1px solid var(--border); }
         .project-item {
             display: flex; justify-content: space-between; align-items: flex-end;
-            padding: 80px 0; border-bottom: 1px solid #222; transition: 0.4s var(--e);
+            padding: 80px 0; border-bottom: 1px solid var(--border); transition: 0.4s var(--e);
         }
         .project-item:hover { padding-left: 30px; color: var(--y); }
         .project-item h3 { font-size: clamp(2rem, 8vw, 8rem); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; line-height: 0.8; }
         .project-meta { text-align: right; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; opacity: 0.5; letter-spacing: 2px; }
 
-        #education { padding: 100px 5%; border-top: 1px solid #222; background: #050505; }
+        #education { padding: 100px 5%; border-top: 1px solid var(--border); background: #050505; }
         .edu-card {
             display: grid; grid-template-columns: 150px 1fr;
-            padding: 60px 0; border-bottom: 1px solid #222; gap: 40px;
+            padding: 60px 0; border-bottom: 1px solid var(--border); gap: 40px;
         }
         .edu-status { font-weight: 900; font-size: 0.7rem; color: var(--y); text-transform: uppercase; letter-spacing: 2px; }
         .edu-content h3 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 15px; }
         .edu-content p { font-size: 1.1rem; color: #999; max-width: 800px; line-height: 1.6; }
 
-        footer { padding: 150px 5% 50px; border-top: 1px solid #222; }
+        footer { padding: 150px 5% 50px; border-top: 1px solid var(--border); }
         .footer-h { font-size: clamp(4rem, 16vw, 15rem); font-weight: 900; letter-spacing: -0.07em; line-height: 0.8; margin-bottom: 60px; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 40px; }
         
         .contact-wrap { display: flex; flex-direction: column; gap: 20px; }
         .social-links { display: flex; gap: 20px; }
-        .social-links a { color: #fff; text-decoration: none; font-size: 1.5rem; transition: 0.3s; cursor: pointer !important; }
-        .social-links a:hover { color: var(--y); }
+        .social-links a { color: #fff; text-decoration: none; font-size: 1.5rem; transition: 0.3s; }
+        .social-links a:hover { color: var(--y); transform: translateY(-3px); }
 
         .mail-link { 
             font-size: clamp(1.2rem, 3vw, 2.5rem); 
@@ -134,7 +140,6 @@
             border-bottom: 4px solid var(--o); 
             position: relative;
             z-index: 100;
-            cursor: pointer !important;
         }
         
         .meta-data { font-size: 0.7rem; font-weight: 900; opacity: 0.4; text-transform: uppercase; line-height: 1.8; }
@@ -198,15 +203,15 @@
             <p class="section-header">// SELECTED_WORKS</p>
             <div class="project-item">
                 <h3>ZM CLOTHING</h3>
-                <div class="project-meta"><br>Concept Store / 2026</div>
+                <div class="project-meta">Concept Store / 2026</div>
             </div>
             <div class="project-item">
                 <h3>FIREBASE CRUD</h3>
-                <div class="project-meta"><br>Front-End Project / 2026</div>
+                <div class="project-meta">Front-End Project / 2026</div>
             </div>
             <div class="project-item">
                 <h3>LANDING PAGES</h3>
-                <div class="project-meta"><br>UI.UX / 2025</div>
+                <div class="project-meta">UI.UX / 2025</div>
             </div>
         </section>
 
@@ -246,7 +251,6 @@
                     <a href="mailto:kzaid2918@gmail.com" class="mail-link">kzaid2918@gmail.com</a>
                 </div>
                 <div class="meta-data">
-                    <br>
                     © 2026 Zaid Mehmood.
                 </div>
             </div>
@@ -255,11 +259,24 @@
 
     <script>
         const cursor = document.getElementById('cursor');
+        
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX - (cursor.offsetWidth/2)}px, ${e.clientY - (cursor.offsetHeight/2)}px, 0)`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        const interactables = document.querySelectorAll('a, .tool');
+        function lerp() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.transform = `translate3d(${cursorX - (cursor.offsetWidth/2)}px, ${cursorY - (cursor.offsetHeight/2)}px, 0)`;
+            requestAnimationFrame(lerp);
+        }
+        lerp();
+
+        const interactables = document.querySelectorAll('a, .tool, .project-item');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
@@ -277,7 +294,7 @@
             side.addEventListener('mouseleave', () => {
                 side.querySelector('h1').style.transform = `translate(0, 0)`;
             });
-        }); // parallax
+        });
     </script>
 </body>
 </html>
