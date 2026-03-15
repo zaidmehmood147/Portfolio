@@ -12,23 +12,31 @@
         :root {
             --y: #FFD200; --o: #FF5A35; --b: #000; --w: #fff;
             --e: cubic-bezier(0.8, 0, 0.2, 1);
-            /* Added a subtle border color for better definition */
-            --border: #222; 
         }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--b); }
+        ::-webkit-scrollbar-thumb { background: var(--o); border-radius: 10px; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         html { overflow-x: hidden; scroll-behavior: smooth; }
-        body { background: var(--b); color: var(--w); font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; -webkit-font-smoothing: antialiased; }
+        body { background: var(--b); color: var(--w); font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
         
         #cursor {
             position: fixed; width: 12px; height: 12px; background: #fff;
             border-radius: 50%; pointer-events: none; z-index: 10001;
-            mix-blend-mode: difference; 
-            /* Smoother transition for the size change */
-            transition: transform 0.1s ease-out, width 0.3s var(--e), height 0.3s var(--e);
+            mix-blend-mode: difference; transition: transform 0.1s, width 0.3s, height 0.3s;
         }
 
-        .cursor-hover { width: 50px !important; height: 50px !important; }
+        .cursor-hover { width: 40px !important; height: 40px !important; }
+
+        #project-preview {
+            position: fixed; width: 300px; height: 200px; 
+            pointer-events: none; z-index: 10000; opacity: 0;
+            transition: opacity 0.3s var(--e), transform 0.2s ease-out;
+            overflow: hidden; border: 1px solid var(--w);
+        }
+        #project-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         nav {
             position: fixed; top: 0; width: 100%; height: 80px;
@@ -40,25 +48,14 @@
         .nav-links a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
         .hero { 
-            display: flex; 
-            height: 100vh; 
-            width: 100vw; 
-            overflow: hidden; 
-            border-bottom: 1px solid var(--border); 
-            background: var(--b);
+            display: flex; height: 100vh; width: 100vw; 
+            overflow: hidden; border-bottom: 1px solid #222; background: var(--b);
         }
         
         .side {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            height: 100%;
-            transition: all 0.8s var(--e);
-            overflow: hidden;
-            padding: 20px;
+            position: relative; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; flex: 1;
+            height: 100%; transition: all 0.8s var(--e); overflow: hidden; padding: 20px;
         }
 
         @media (min-width: 992px) {
@@ -70,76 +67,66 @@
         .develop { background: var(--o); color: #000; }
 
         .side h1 { 
-            font-size: clamp(3rem, 12vw, 15rem); 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: -0.07em; 
-            line-height: 0.8; 
-            text-align: center; 
-            white-space: nowrap;
-            pointer-events: none; 
-            will-change: transform;
+            font-size: clamp(3rem, 12vw, 15rem); font-weight: 900; 
+            text-transform: uppercase; letter-spacing: -0.07em; line-height: 0.8; 
+            text-align: center; white-space: nowrap; pointer-events: none; 
         }
 
         .side span { 
-            position: absolute; 
-            bottom: 40px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 5px; 
-            font-size: 0.7rem; 
-            opacity: 0.5; 
-            white-space: nowrap;
+            position: absolute; bottom: 40px; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 5px; font-size: 0.7rem; 
+            opacity: 0.5; white-space: nowrap;
         }
 
-        #arsenal { padding: 120px 5%; border-top: 1px solid var(--border); }
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s var(--e); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        #arsenal { padding: 120px 5%; border-top: 1px solid #222; }
         .section-header { font-size: 0.65rem; font-weight: 900; color: #555; letter-spacing: 6px; margin-bottom: 40px; text-transform: uppercase; }
-        
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #222; }
         .tool {
-            border: 1px solid var(--border); padding: 80px 20px; display: flex; flex-direction: column;
+            border: 1px solid #222; padding: 80px 20px; display: flex; flex-direction: column;
             align-items: center; transition: 0.4s var(--e);
         }
-        /* Refined hover: uses scale instead of translateY for a cleaner feel */
-        .tool:hover { background: #fff; color: #000; transform: scale(0.96); }
+        .tool:hover { background: #fff; color: #000; transform: translateY(-5px); }
         .tool i { font-size: 3.5rem; margin-bottom: 20px; }
         .tool p { font-weight: 900; text-transform: uppercase; font-size: 0.7rem; }
 
-        #projects { padding: 100px 5%; border-top: 1px solid var(--border); }
+        #projects { padding: 100px 5%; border-top: 1px solid #222; }
         .project-item {
             display: flex; justify-content: space-between; align-items: flex-end;
-            padding: 80px 0; border-bottom: 1px solid var(--border); transition: 0.4s var(--e);
+            padding: 80px 0; border-bottom: 1px solid #222; transition: 0.4s var(--e);
         }
         .project-item:hover { padding-left: 30px; color: var(--y); }
         .project-item h3 { font-size: clamp(2rem, 8vw, 8rem); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; line-height: 0.8; }
         .project-meta { text-align: right; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; opacity: 0.5; letter-spacing: 2px; }
 
-        #education { padding: 100px 5%; border-top: 1px solid var(--border); background: #050505; }
+        #education { padding: 100px 5%; border-top: 1px solid #222; background: #050505; }
         .edu-card {
             display: grid; grid-template-columns: 150px 1fr;
-            padding: 60px 0; border-bottom: 1px solid var(--border); gap: 40px;
+            padding: 60px 0; border-bottom: 1px solid #222; gap: 40px;
         }
         .edu-status { font-weight: 900; font-size: 0.7rem; color: var(--y); text-transform: uppercase; letter-spacing: 2px; }
         .edu-content h3 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 15px; }
         .edu-content p { font-size: 1.1rem; color: #999; max-width: 800px; line-height: 1.6; }
 
-        footer { padding: 150px 5% 50px; border-top: 1px solid var(--border); }
+        footer { padding: 150px 5% 50px; border-top: 1px solid #222; }
         .footer-h { font-size: clamp(4rem, 16vw, 15rem); font-weight: 900; letter-spacing: -0.07em; line-height: 0.8; margin-bottom: 60px; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 40px; }
         
         .contact-wrap { display: flex; flex-direction: column; gap: 20px; }
         .social-links { display: flex; gap: 20px; }
-        .social-links a { color: #fff; text-decoration: none; font-size: 1.5rem; transition: 0.3s; }
-        .social-links a:hover { color: var(--y); transform: translateY(-3px); }
+        
+        .social-links a { 
+            color: #fff; text-decoration: none; font-size: 1.5rem; 
+            transition: color 0.3s; display: inline-block; 
+        }
+        .social-links a:hover { color: var(--y); }
 
         .mail-link { 
-            font-size: clamp(1.2rem, 3vw, 2.5rem); 
-            font-weight: 900; 
-            color: var(--o); 
-            text-decoration: none; 
-            border-bottom: 4px solid var(--o); 
-            position: relative;
-            z-index: 100;
+            font-size: clamp(1.2rem, 3vw, 2.5rem); font-weight: 900; 
+            color: var(--o); text-decoration: none; border-bottom: 4px solid var(--o); 
+            position: relative; z-index: 100;
         }
         
         .meta-data { font-size: 0.7rem; font-weight: 900; opacity: 0.4; text-transform: uppercase; line-height: 1.8; }
@@ -150,26 +137,22 @@
             .grid { grid-template-columns: repeat(2, 1fr); }
             .edu-card { grid-template-columns: 1fr; gap: 10px; }
             .project-item { flex-direction: column; align-items: flex-start; gap: 20px; }
-            #cursor { display: none; }
+            #cursor, #project-preview { display: none; }
             * { cursor: auto !important; }
-        }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
+    <div id="project-preview"><img src="" alt="preview"></div>
 
     <nav>
-        <div class="logo">ZAID MEHMOOD</div>
+        <div class="logo scramble" data-value="ZAID MEHMOOD">ZAID MEHMOOD</div>
         <div class="nav-links">
-            <a href="#projects">Work</a>
-            <a href="#arsenal">Arsenal</a>
-            <a href="#education">Studies</a>
+            <a href="#projects" class="scramble" data-value="WORK">WORK</a>
+            <a href="#arsenal" class="scramble" data-value="ARSENAL">ARSENAL</a>
+            <a href="#education" class="scramble" data-value="STUDIES">STUDIES</a>
         </div>
     </nav>
 
@@ -185,7 +168,7 @@
             </div>
         </section>
 
-        <section id="arsenal">
+        <section id="arsenal" class="reveal">
             <p class="section-header">// THE_TOOLKIT</p>
             <div class="grid">
                 <div class="tool"><i class="devicon-python-plain"></i><p>Python</p></div>
@@ -201,15 +184,15 @@
 
         <section id="projects">
             <p class="section-header">// SELECTED_WORKS</p>
-            <div class="project-item">
+            <div class="project-item reveal" data-img="https://picsum.photos/600/400?random=1">
                 <h3>ZM CLOTHING</h3>
                 <div class="project-meta">Concept Store / 2026</div>
             </div>
-            <div class="project-item">
+            <div class="project-item reveal" data-img="https://picsum.photos/600/400?random=2">
                 <h3>FIREBASE CRUD</h3>
                 <div class="project-meta">Front-End Project / 2026</div>
             </div>
-            <div class="project-item">
+            <div class="project-item reveal" data-img="https://picsum.photos/600/400?random=3">
                 <h3>LANDING PAGES</h3>
                 <div class="project-meta">UI.UX / 2025</div>
             </div>
@@ -217,64 +200,92 @@
 
         <section id="education">
             <p class="section-header">// TECHNICAL_EDUCATION</p>
-            <div class="edu-card">
+            <div class="edu-card reveal">
                 <div class="edu-status">Enrolled</div>
                 <div class="edu-content">
                     <h3>Full Stack Development</h3>
                     <p>Focus on engineering, data structures, and high-performance system architecture.</p>
                 </div>
             </div>
-            <div class="edu-card">
+            <div class="edu-card reveal">
                 <div class="edu-status">Certified</div>
                 <div class="edu-content">
                     <h3>Cisco Certified</h3>
                     <p>Industrial networking, routing protocols, and secure data infrastructure.</p>
                 </div>
             </div>
-            <div class="edu-card">
-                <div class="edu-status">Enrolled</div>
-                <div class="edu-content">
-                    <h3>HSC Pre-Engineering</h3>
-                    <p>Core specialisation in physics and advanced mathematics for logical problem solving.</p>
-                </div>
-            </div>
         </section>
 
         <footer>
-            <h2 class="footer-h">LET'S<br>BUILD.</h2>
+            <h2 class="footer-h reveal">LET'S<br>BUILD.</h2>
             <div class="footer-bottom">
                 <div class="contact-wrap">
                     <div class="social-links">
-                        <a href="https://github.com/zaidmehmood147" target="_blank"><i class="devicon-github-original"></i></a>
-                        <a href="https://www.linkedin.com/in/zaid-mehmood-9339503a6/" target="_blank" style="font-weight: 900; font-size: 1.2rem;">LN</a>
+                        <a href="https://github.com/zaidmehmood147" target="_blank" class="magnetic"><i class="devicon-github-original"></i></a>
+                        <a href="https://www.linkedin.com/in/zaid-mehmood-9339503a6/" target="_blank" class="magnetic" style="font-weight: 900; font-size: 1.2rem;">LN</a>
                     </div>
-                    <a href="mailto:kzaid2918@gmail.com" class="mail-link">kzaid2918@gmail.com</a>
+                    <a href="mailto:kzaid2918@gmail.com" class="mail-link scramble" data-value="KZAID2918@GMAIL.COM">kzaid2918@gmail.com</a>
                 </div>
-                <div class="meta-data">
-                    © 2026 Zaid Mehmood.
-                </div>
+                <div class="meta-data">© 2026 Zaid Mehmood.</div>
             </div>
         </footer>
     </main>
 
     <script>
         const cursor = document.getElementById('cursor');
-        
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
+        const preview = document.getElementById('project-preview');
+        const previewImg = preview.querySelector('img');
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            cursor.style.transform = `translate3d(${e.clientX - (cursor.offsetWidth/2)}px, ${e.clientY - (cursor.offsetHeight/2)}px, 0)`;
+            
+            preview.style.transform = `translate3d(${e.clientX + 30}px, ${e.clientY - 100}px, 0)`;
         });
 
-        function lerp() {
-            cursorX += (mouseX - cursorX) * 0.2;
-            cursorY += (mouseY - cursorY) * 0.2;
-            cursor.style.transform = `translate3d(${cursorX - (cursor.offsetWidth/2)}px, ${cursorY - (cursor.offsetHeight/2)}px, 0)`;
-            requestAnimationFrame(lerp);
-        }
-        lerp();
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        document.querySelectorAll('.scramble').forEach(el => {
+            el.onmouseover = event => {
+                let iteration = 0;
+                const interval = setInterval(() => {
+                    event.target.innerText = event.target.innerText
+                        .split("")
+                        .map((letter, index) => {
+                            if(index < iteration) return event.target.dataset.value[index];
+                            return letters[Math.floor(Math.random() * 26)]
+                        })
+                        .join("");
+                    if(iteration >= event.target.dataset.value.length) clearInterval(interval);
+                    iteration += 1 / 3;
+                }, 30);
+            };
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+            });
+            btn.addEventListener('mouseleave', () => btn.style.transform = `translate(0px, 0px)`);
+        });
+
+        document.querySelectorAll('.project-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                previewImg.src = item.dataset.img;
+                preview.style.opacity = "1";
+            });
+            item.addEventListener('mouseleave', () => {
+                preview.style.opacity = "0";
+            });
+        });
 
         const interactables = document.querySelectorAll('a, .tool, .project-item');
         interactables.forEach(el => {
